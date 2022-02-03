@@ -10,6 +10,7 @@
     "@logicflow/core": "^1.0.0",
     "@logicflow/extension": "^1.0.0",
     "jmuxer": "^2.0.3",
+    "konva": "^8.3.2",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },

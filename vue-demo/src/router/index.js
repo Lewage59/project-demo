@@ -25,6 +25,11 @@ const router = createRouter({
       name: 'audio-jmuxer',
       component: () => import(/* webpackChunkName: "audio-jmuxer" */ '@/examples/audio-jmuxer/index.vue')
     },
+    {
+      path: '/control-panel',
+      name: 'control-panel',
+      component: () => import(/* webpackChunkName: "control-panel" */ '@/examples/control-panel/index.vue')
+    },
   ]
 })
 

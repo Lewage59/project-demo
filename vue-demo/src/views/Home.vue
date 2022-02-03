@@ -5,6 +5,7 @@
     <ul class="content">
       <li><router-link to="/logicflow">logicFlow流程图框架</router-link></li>
       <li><router-link to="/audio-jmuxer">JMuxer音视频处理器</router-link></li>
+      <li><router-link to="/control-panel">基于konva实现的控制面板</router-link></li>
     </ul>
   </div>
 </template>
