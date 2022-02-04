@@ -14,6 +14,8 @@ export default {
       const controlPanel = new ControlPanel({
         node: 'device' // id
       })
+
+      controlPanel.createRocker()
     })
   }
 }

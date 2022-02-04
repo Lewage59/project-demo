@@ -45,12 +45,16 @@ export default class Rocker {
   // 初始化摇杆
   _init () {
     const that = this
+    const config = Object.assign({
+      x: 100,
+      y: 280,
+      width: 100,
+      height: 100,
+      draggable: true,
+    }, this.option)
+    
     this.rockerGroup = new Konva.Group({
-      x: this.option.x || 100,
-      y: this.option.y || 280,
-      width: this.option.width || 100,
-      height: this.option.height || 100,
-      draggable: this.option.draggable,
+      ...config,
       dragBoundFunc: dragBoundPanelArea({
         width: this.option.panelArea.width,
         height: this.option.panelArea.height
