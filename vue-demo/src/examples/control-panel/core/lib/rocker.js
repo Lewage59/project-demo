@@ -1,4 +1,4 @@
-import { dragBoundPanelArea } from './utils'
+import { dragBoundPanelArea } from '../utils/tools'
 
 // 键盘按键值行为映射
 const keyBoardMap = new Map([
@@ -39,53 +39,18 @@ export default class Rocker {
   constructor (container, option) {
     this.container = container
     this.option = option
-    return this._init()
-  }
-
-  // 更新渲染摇杆面板
-  renderRocker() {
-    if (this.keyBoardEventSet.size === 0) {
-      return
-    }
-
-    const kbEventSet = this.keyBoardEventSet.values()
-    const ad = this.actionDirection(kbEventSet.next().value)
-    let step = 50 * ad.direct
-    
-    if (this.keyBoardEventSet.size >= 2) {
-      const edge = this.dragBoundCircleArea(50)
-      const nextAd = this.actionDirection(kbEventSet.next().value)
-      const nextStep = edge * nextAd.direct
-      step = edge * ad.direct
-      
-      nextAd.axis === 'x' && this.innerCircle.x(nextStep);
-      nextAd.axis === 'y' && this.innerCircle.y(nextStep);
-    } 
-    
-    ad.axis === 'x' && this.innerCircle.x(step)
-    ad.axis === 'y' && this.innerCircle.y(step)
-  }
-
-  // 计算圈内区域
-  dragBoundCircleArea (radius) {
-    return Math.sqrt(Math.pow(radius, 2) / 2)
-  }
-
-  // 判断当前行为方向
-  actionDirection (key) {
-    const direction = keyBoardMap.get(key)
-    return directionMap[direction]
+    this._init()
   }
 
   // 初始化摇杆
   _init () {
     const that = this
     this.rockerGroup = new Konva.Group({
-      x: 100,
-      y: 280,
-      width: 100,
-      height: 100,
-      draggable: true,
+      x: this.option.x || 100,
+      y: this.option.y || 280,
+      width: this.option.width || 100,
+      height: this.option.height || 100,
+      draggable: this.option.draggable,
       dragBoundFunc: dragBoundPanelArea({
         width: this.option.panelArea.width,
         height: this.option.panelArea.height
@@ -125,8 +90,6 @@ export default class Rocker {
       // 记录按键事件
       that.keyBoardEventSet.add(e.code)
       that.renderRocker()
-  
-      console.log(that.innerCircle.position())
     });
   
     // 监听键盘松开行为
@@ -144,8 +107,77 @@ export default class Rocker {
   
       that.renderRocker()
     });
-
-    return this.rockerGroup
   }
 
+  // 更新渲染摇杆面板
+  renderRocker() {
+    if (this.keyBoardEventSet.size === 0) {
+      return
+    }
+
+    const kbEventSet = this.keyBoardEventSet.values()
+    const ad = this.actionDirection(kbEventSet.next().value)
+    let step = 50 * ad.direct
+    
+    if (this.keyBoardEventSet.size >= 2) {
+      const edge = this.dragBoundCircleArea(50)
+      const nextAd = this.actionDirection(kbEventSet.next().value)
+      const nextStep = edge * nextAd.direct
+      step = edge * ad.direct
+      
+      nextAd.axis === 'x' && this.innerCircle.x(nextStep);
+      nextAd.axis === 'y' && this.innerCircle.y(nextStep);
+    } 
+    
+    ad.axis === 'x' && this.innerCircle.x(step)
+    ad.axis === 'y' && this.innerCircle.y(step)
+  }
+
+  // 计算圈内区域
+  dragBoundCircleArea (radius) {
+    return Math.sqrt(Math.pow(radius, 2) / 2)
+  }
+
+  // 判断当前行为方向
+  actionDirection (key) {
+    const direction = keyBoardMap.get(key)
+    return directionMap[direction]
+  }
+
+  // 添加监听事件
+  addEventListener (eventName, cb) {
+    this[eventName](cb)
+  }
+
+  // 监听摇动改变
+  shakeChange (cb) {
+    const that = this
+    this.innerCircle.on('xChange yChange', function() {
+      const groupPos = that.rockerGroup.position()
+      const circlePos = that.innerCircle.position()
+
+      // 不监听复原位置
+      if (circlePos.x === 0 && circlePos.y === 0) {
+        return
+      }
+      
+      cb({
+        x: groupPos.x + circlePos.x,
+        y: groupPos.y + circlePos.y
+      })
+    });
+  }
+
+  // 监听摇杆拖拽位置变化
+  dragmove (cb) {
+    const that = this
+    this.rockerGroup.on('dragmove', function() {
+      const groupPos = that.rockerGroup.position()
+
+      cb({
+        x: groupPos.x,
+        y: groupPos.y
+      })
+    });
+  }
 }

@@ -40,10 +40,15 @@ export default class ControlPanel {
     stage.add(layer);
 
     const rocker = new Rocker(container, {
-      panelArea: this.option.panelArea
+      panelArea: this.option.panelArea,
+      draggable: true
+    })
+
+    rocker.addEventListener('shakeChange', function (pos) {
+      // console.log(pos)
     })
   
-    layer.add(rocker);
+    layer.add(rocker.rockerGroup);
     layer.draw()
   }
 }
