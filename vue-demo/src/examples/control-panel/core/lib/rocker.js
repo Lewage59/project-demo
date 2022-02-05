@@ -52,7 +52,7 @@ export default class Rocker {
       height: 100,
       draggable: true,
     }, this.option)
-    
+
     this.rockerGroup = new Konva.Group({
       ...config,
       dragBoundFunc: dragBoundPanelArea({
@@ -64,24 +64,23 @@ export default class Rocker {
     // 摇杆范围区域（外圆）
     this.externalCircle = new Konva.Circle({
       radius: 50,
-      fill: 'red',
-      stroke: 'black',
-      strokeWidth: 2,
+      fill: '#68a7fe',
+      stroke: '#dde6f3',
+      strokeWidth: 4,
       opacity: 0.8,
     });
   
     // 摇杆芯（内圆）
     this.innerCircle = new Konva.Circle({
-      radius: 10,
-      fill: 'red',
-      stroke: 'black',
-      strokeWidth: 2,
-      opacity: 0.8,
+      radius: 14,
+      fill: 'black',
+      opacity: 0.4,
     });
   
     // 添加到组
     this.rockerGroup.add(this.externalCircle)
     this.rockerGroup.add(this.innerCircle)
+    this.innerCircle.zIndex(1)
   
     this.keyBoardEventSet = new Set()
 

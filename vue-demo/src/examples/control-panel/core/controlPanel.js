@@ -36,7 +36,7 @@ export default class ControlPanel {
     this.stage = new Konva.Stage({
       container: this.option.node,
       width: this.option.panelArea.width,
-      height: this.option.panelArea.height,
+      height: this.option.panelArea.height
     });
 
     this.container = this.stage.container()
@@ -46,6 +46,9 @@ export default class ControlPanel {
     this.layer.draw()
   }
 
+  /**
+   * 创建摇杆
+   */
   createRocker (option) {
     const that = this
     const config = Object.assign({
@@ -64,10 +67,6 @@ export default class ControlPanel {
       this.container.tabIndex = 1
       this.container.focus()
     }
-
-    // rocker.addEventListener('shakeChange', function (pos) {
-    //   console.log(pos)
-    // })xw
   
     this.layer.add(rockerGroup)
     this.layer.draw()
@@ -102,6 +101,72 @@ export default class ControlPanel {
       that.layer.draw()
     })
 
+    // 摇杆样式
+    const coverGroup = new Konva.Group({
+      width: 100,
+      height: 100
+    });
+
+    const triangleTop = new Konva.RegularPolygon({
+      y: -30,
+      sides: 3,
+      radius: 8,
+      fill: 'white'
+    });
+
+    const triangleLeft = new Konva.RegularPolygon({
+      x: -30,
+      sides: 3,
+      radius: 8,
+      fill: 'white',
+      rotation: -90
+    });
+
+    const triangleBottom = new Konva.RegularPolygon({
+      y: 30,
+      sides: 3,
+      radius: 8,
+      fill: 'white',
+      rotation: 180
+    });
+
+    const triangleRight = new Konva.RegularPolygon({
+      x: 30,
+      sides: 3,
+      radius: 8,
+      fill: 'white',
+      rotation: 90
+    });
+
+    const centerCricle = new Konva.Circle({
+      radius: 8,
+      fill: 'white'
+    })
+
+    rockerGroup.add(coverGroup)
+    coverGroup.add(triangleTop)
+    coverGroup.add(triangleLeft)
+    coverGroup.add(triangleBottom)
+    coverGroup.add(triangleRight)
+    coverGroup.add(centerCricle)
+
+    coverGroup.zIndex(1)
+    that.layer.draw()
+
     return rocker
+  }
+
+  /**
+   * 显示控制面板
+   */
+  show () {
+    this.stage.show()
+  }
+
+  /**
+   * 隐藏控制面板
+   */
+  hide () {
+    this.stage.hide()
   }
 }
