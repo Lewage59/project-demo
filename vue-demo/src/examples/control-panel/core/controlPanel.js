@@ -157,16 +157,27 @@ export default class ControlPanel {
   }
 
   /**
-   * 显示控制面板
+   * 显示 控制面板
    */
   show () {
     this.stage.show()
   }
 
   /**
-   * 隐藏控制面板
+   * 隐藏 控制面板
    */
   hide () {
     this.stage.hide()
+  }
+
+  /**
+   * 设置/获取 控制面板透明度
+   */
+  opacity (val) {
+    if (val === 'undefined') {
+      return this.stage.opacity()
+    }
+
+    return this.stage.opacity(val)
   }
 }
