@@ -22,10 +22,10 @@
 
 路由: `/audio-jmuxer`
 
-启动本地 websocket 服务
+启动本地 websocket 服务模拟音频流传输
 ```bash
 # 在命令终端输入
-node src\examples\audio-jmuxer\server\index.js
+node src/examples/audio-jmuxer/server/index.js
 ```
 
 相关文档：https://github.com/samirkumardas/jmuxer
