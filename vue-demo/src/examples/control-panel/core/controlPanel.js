@@ -1,5 +1,6 @@
 import Konva from 'konva'
 import Rocker from './lib/rocker'
+import { dragBoundPanelArea } from './utils/tools'
 
 export default class ControlPanel {
   // 全局配置选项
@@ -8,6 +9,8 @@ export default class ControlPanel {
   stage
   // 图层实例
   layer
+  // 摇杆实例
+  rocker
 
   constructor (option) {
     /**
@@ -15,6 +18,7 @@ export default class ControlPanel {
      * node Dom节点
      */
 
+    // 默认获取结点长宽
     const panel = document.getElementById(option.node)
     const panelArea = {
       width: panel.offsetWidth,
@@ -56,11 +60,11 @@ export default class ControlPanel {
       keyBoardable: true,
     }, option)
 
-    const rocker = new Rocker(this.container, {
+    this.rocker = new Rocker(this.container, {
       panelArea: this.option.panelArea,
       name: 'rocker'
     })
-    const rockerGroup = rocker.rockerGroup
+    const rockerGroup = this.rocker.rockerGroup
 
     // 监听键盘事件
     if (config.keyBoardable) {
@@ -207,7 +211,24 @@ export default class ControlPanel {
     coverGroup.zIndex(1)
     that.layer.draw()
 
-    return rocker
+    return this.rocker
+  }
+
+  /**
+   * 面板容器区域
+   */
+  changePanelArea (area) {
+    const { width, height } = area
+
+    // 设置面板区域
+    width && this.stage.width(width)
+    height && this.stage.height(height)
+
+    // 设置元素移动区域
+    this.rocker.rockerGroup.dragBoundFunc(dragBoundPanelArea({
+      width,
+      height
+    }))
   }
 
   /**
