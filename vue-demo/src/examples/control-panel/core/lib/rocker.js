@@ -1,3 +1,7 @@
+/**
+ * 摇杆
+ */
+
 import { dragBoundPanelArea } from '../utils/tools'
 
 // 键盘按键值行为映射

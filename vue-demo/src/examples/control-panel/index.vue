@@ -3,6 +3,7 @@
   <hr/>
   <button @click="hidePanel">hidePanel</button>
   <button @click="showPanel">showPanel</button>
+  <input type="text" v-model="cpOpacity">
   <div id="device" class="panel"></div>
 </template>
 
@@ -10,14 +11,17 @@
 import ControlPanel from './core/controlPanel'
 import { onMounted, reactive, toRefs } from '@vue/runtime-core'
 
+let controlPanel = null
+
 export default {
   setup() {
     const state = reactive({
-      controlPanel: null
+      controlPanel: null,
+      cpOpacity: 1
     })
 
     onMounted(() => {
-      const controlPanel = new ControlPanel({
+      controlPanel = new ControlPanel({
         node: 'device' // id
       })
 
@@ -34,10 +38,17 @@ export default {
   },
   methods: {
     hidePanel () {
-      this.controlPanel.hide()
+      controlPanel.hide()
     },
     showPanel() {
-      this.controlPanel.show()
+      controlPanel.show()
+    }
+  },
+  watch: {
+    cpOpacity (val) {
+      if (Number(val)) {
+        controlPanel.opacity(Number(val))
+      }
     }
   }
 }

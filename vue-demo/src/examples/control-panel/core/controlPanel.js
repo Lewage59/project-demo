@@ -107,35 +107,83 @@ export default class ControlPanel {
       height: 100
     });
 
-    const triangleTop = new Konva.RegularPolygon({
-      y: -30,
-      sides: 3,
-      radius: 8,
-      fill: 'white'
+    // const triangleTop = new Konva.RegularPolygon({
+    //   y: -30,
+    //   sides: 3,
+    //   radius: 8,
+    //   fill: 'white'
+    // });
+
+    // const triangleLeft = new Konva.RegularPolygon({
+    //   x: -30,
+    //   sides: 3,
+    //   radius: 8,
+    //   fill: 'white',
+    //   rotation: -90
+    // });
+
+    // const triangleBottom = new Konva.RegularPolygon({
+    //   y: 30,
+    //   sides: 3,
+    //   radius: 8,
+    //   fill: 'white',
+    //   rotation: 180
+    // });
+
+    // const triangleRight = new Konva.RegularPolygon({
+    //   x: 30,
+    //   sides: 3,
+    //   radius: 8,
+    //   fill: 'white',
+    //   rotation: 90
+    // });
+
+    const upText = new Konva.Text({
+      width: 40,
+      height: 20,
+      x: -20,
+      y: -40,
+      text: 'W',
+      fontSize: 18,
+      fill: 'white',
+      align: 'center',
+      verticalAlign: 'middle'
     });
 
-    const triangleLeft = new Konva.RegularPolygon({
-      x: -30,
-      sides: 3,
-      radius: 8,
+    const downText = new Konva.Text({
+      width: 40,
+      height: 20,
+      x: -20,
+      y: 24,
+      text: 'S',
+      fontSize: 18,
       fill: 'white',
-      rotation: -90
+      align: 'center',
+      verticalAlign: 'middle'
     });
 
-    const triangleBottom = new Konva.RegularPolygon({
-      y: 30,
-      sides: 3,
-      radius: 8,
+    const leftText = new Konva.Text({
+      width: 20,
+      height: 40,
+      x: -40,
+      y: -18,
+      text: 'A',
+      fontSize: 18,
       fill: 'white',
-      rotation: 180
+      align: 'center',
+      verticalAlign: 'middle'
     });
 
-    const triangleRight = new Konva.RegularPolygon({
-      x: 30,
-      sides: 3,
-      radius: 8,
+    const rightText = new Konva.Text({
+      width: 20,
+      height: 40,
+      x: 20,
+      y: -18,
+      text: 'D',
+      fontSize: 18,
       fill: 'white',
-      rotation: 90
+      align: 'center',
+      verticalAlign: 'middle'
     });
 
     const centerCricle = new Konva.Circle({
@@ -144,10 +192,16 @@ export default class ControlPanel {
     })
 
     rockerGroup.add(coverGroup)
-    coverGroup.add(triangleTop)
-    coverGroup.add(triangleLeft)
-    coverGroup.add(triangleBottom)
-    coverGroup.add(triangleRight)
+    // 图案
+    // coverGroup.add(triangleTop)
+    // coverGroup.add(triangleLeft)
+    // coverGroup.add(triangleBottom)
+    // coverGroup.add(triangleRight)
+    // 文本
+    coverGroup.add(upText)
+    coverGroup.add(downText)
+    coverGroup.add(leftText)
+    coverGroup.add(rightText)
     coverGroup.add(centerCricle)
 
     coverGroup.zIndex(1)
@@ -180,4 +234,11 @@ export default class ControlPanel {
 
     return this.stage.opacity(val)
   }
+
+  /**
+   * 销毁结点
+   */
+  destroy () {
+    this.stage.destroy()
+  } 
 }
