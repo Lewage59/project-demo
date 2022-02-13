@@ -159,19 +159,32 @@ export default class Rocker {
   // 监听摇动改变
   shakeChange (cb) {
     const that = this
+    let lastInfo = null
     this.innerCircle.on('xChange yChange', function() {
       const groupPos = that.rockerGroup.position()
       const circlePos = that.innerCircle.position()
-
-      // 不监听复原位置
-      if (circlePos.x === 0 && circlePos.y === 0) {
-        return
+      const newInfo = {
+        x: groupPos.x + circlePos.x,
+        y: groupPos.y + circlePos.y,
+        eventNum: that.keyBoardEventSet.size
       }
       
-      cb({
-        x: groupPos.x + circlePos.x,
-        y: groupPos.y + circlePos.y
-      })
+      if (!lastInfo) {
+        lastInfo = {
+          x: groupPos.x,
+          y: groupPos.y,
+          eventNum: 0
+        }
+      }
+
+      // 不监听复原位置
+      // if (circlePos.x === 0 && circlePos.y === 0) {
+      //   return
+      // }
+      
+      cb(newInfo, lastInfo)
+      // 记录上次数据
+      lastInfo = newInfo
     });
   }
 

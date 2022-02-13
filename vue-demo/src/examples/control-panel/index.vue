@@ -27,9 +27,9 @@ export default {
 
       const rocker = controlPanel.createRocker()
 
-      // rocker.addEventListener('shakeChange', function (pos) {
-      //   console.log(pos)
-      // })
+      rocker.addEventListener('shakeChange', function (newVal, oldVal) {
+        console.log(newVal, oldVal)
+      })
     })
 
     return {
@@ -45,7 +45,8 @@ export default {
     }
   },
   watch: {
-    cpOpacity (val) {
+    cpOpacity (d, val) {
+      console.log(d, val);
       if (Number(val)) {
         controlPanel.opacity(Number(val))
       }
