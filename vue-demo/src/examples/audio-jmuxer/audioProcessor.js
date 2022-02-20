@@ -17,7 +17,6 @@ export default class AudioProcessor {
      * wsUrl
 		 */
 		this.jmuxer = new JMuxer({
-      node: 'player',
       mode: 'audio',
 			onError(data) {
 				console.log('Buffer error encountered', data);
@@ -45,20 +44,25 @@ export default class AudioProcessor {
 	 * @param {*} data AAC Buffer 视频流
 	 * @returns 
 	 */
+  flag = 1
+  bufferList = []
 	parse(data) {
-		let input = new Uint8Array(data),
-				dv = new DataView(input.buffer),
-				duration,
-				audioLength,
-				audio;
+		let input = new Uint8Array(data)
 
-		// duration = dv.getUint16(0, true); // 第1，2字节表示时间间隔
-		// audioLength = dv.getUint16(2, true); // 第3，4字节表示数据流长度
-		// audio = input.subarray(4, (audioLength + 4)); // 获取音频AAC ADTS数据
+    if (this.flag === 1) {
+      this.bufferList = Array.from(input)
+    }
+
+    if (this.flag <= 43) {
+      this.flag++;
+      this.bufferList = this.bufferList.concat(Array.from(input));
+      return false
+    } 
+    
+    this.flag = 1
 
 		return {
-			audio: input,
-			// duration: duration
+			audio: new Uint8Array(this.bufferList)
 		};
 	}
 
@@ -67,7 +71,13 @@ export default class AudioProcessor {
 	}
 
 	onPlay() {
-		this.audioDom.play()
+    this.audioDom.load()
+    const playPromise = this.audioDom.play()
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        this.audioDom.play()
+      })
+    }
 	}
 
 	onPause() {
@@ -77,4 +87,10 @@ export default class AudioProcessor {
 	onReload() {
 		this.audioDom.load()
 	}
+
+  onDestroy() {
+    this.ws.handleClose()
+    this.audioDom.pause()
+    this.jmuxer = null
+  }
 }
