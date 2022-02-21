@@ -24,10 +24,8 @@ export default {
       this.audio = new AudioProcessor({
         node: 'player',
         wsUrl: 'ws://localhost:7777/websockets/audio/b7bb4b03-7f37-4e3e-bede-6b1733c8609d/7XBRX18A11003997', // websocket请求地址
-        flushingTime: 43,
-        fps: 43,
-			  clearBuffer: true,
-        debug: false
+        readFpsFromTrack: true,
+        debug: true
       })
     },
     playAudio() {

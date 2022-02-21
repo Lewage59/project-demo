@@ -2,9 +2,10 @@
  * 音频接受处理器
  */
 import JMuxer from 'jmuxer';
-import Socket from './socket' 
+import Socket from './socket';
 
-const DEFAULT_WS_URL = 'ws://localhost:8080'
+const DEFAULT_WS_URL = 'ws://localhost:8080';
+const BUFFER_MAX = 30;
 
 export default class AudioProcessor {
 	constructor(options) {
@@ -51,14 +52,15 @@ export default class AudioProcessor {
 
     if (this.flag === 1) {
       this.bufferList = Array.from(input)
+    } else {
+      this.bufferList = this.bufferList.concat(Array.from(input));
     }
 
-    if (this.flag <= 43) {
+    if (this.flag <= BUFFER_MAX) {
       this.flag++;
-      this.bufferList = this.bufferList.concat(Array.from(input));
       return false
     } 
-    
+
     this.flag = 1
 
 		return {
