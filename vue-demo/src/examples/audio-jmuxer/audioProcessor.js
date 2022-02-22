@@ -5,7 +5,6 @@ import JMuxer from 'jmuxer';
 import Socket from './socket';
 
 const DEFAULT_WS_URL = 'ws://localhost:8080';
-const BUFFER_MAX = 30;
 
 export default class AudioProcessor {
 	constructor(options) {
@@ -19,8 +18,12 @@ export default class AudioProcessor {
 		 */
 		this.jmuxer = new JMuxer({
       mode: 'audio',
+      flushingTime: 0,
+      onReady() {
+				console.log('Jmuxer audio init onReady!');
+      },
 			onError(data) {
-				console.log('Buffer error encountered', data);
+				console.error('Buffer error encountered', data);
 			},
 			...options
 		});
@@ -45,31 +48,12 @@ export default class AudioProcessor {
 	 * @param {*} data AAC Buffer 视频流
 	 * @returns 
 	 */
-  flag = 1
-  bufferList = []
 	parse(data) {
 		let input = new Uint8Array(data)
 
-    if (this.flag === 1) {
-      this.bufferList = Array.from(input)
-    } else {
-      this.bufferList = this.bufferList.concat(Array.from(input));
-    }
-
-    if (this.flag <= BUFFER_MAX) {
-      this.flag++;
-      return false
-    } 
-
-    this.flag = 1
-
 		return {
-			audio: new Uint8Array(this.bufferList)
+			audio: input
 		};
-	}
-
-	onClose() {
-		this.ws.handleClose()
 	}
 
 	onPlay() {
