@@ -11,3 +11,4 @@
 - [Vue 项目轮子 Demo](./vue-demo/README.md)
   - logicflow 流程图框架
   - JMuxer 音视频处理器
+  - 键盘控制面板
