@@ -32,4 +32,14 @@ node src/examples/audio-jmuxer/server/index.js
 
 相关文档：https://github.com/samirkumardas/jmuxer
 
+### 键盘控制面板
+
+说明: This control panel can through keywork to command your events.
+
+文件路径: `src/example/control-panel`
+
+路由: `/control-panel`
+
+相关文档：https://konvajs.org/
+
 
