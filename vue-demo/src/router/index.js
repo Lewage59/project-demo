@@ -30,6 +30,11 @@ const router = createRouter({
       name: 'control-panel',
       component: () => import(/* webpackChunkName: "control-panel" */ '@/examples/control-panel/index.vue')
     },
+    {
+      path: '/focus-input',
+      name: 'focus-input',
+      component: () => import(/* webpackChunkName: "focus-input" */ '@/examples/focus-input/index.vue')
+    },
   ]
 })
 
