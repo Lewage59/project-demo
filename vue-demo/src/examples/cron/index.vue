@@ -53,14 +53,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .cron {
   width: 400px;
   margin: 0 auto;
   margin-top: 100px;
-  h1 {
-    font-size: 50px;
-    text-align: center;
-  }
+}
+.cron h1 {
+  font-size: 50px;
+  text-align: center;
 }
 </style>
