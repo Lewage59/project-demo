@@ -9,6 +9,7 @@
   "dependencies": {
     "@logicflow/core": "^1.0.0",
     "@logicflow/extension": "^1.0.0",
+    "element-plus": "^2.2.15",
     "jmuxer": "^2.0.3",
     "konva": "^8.3.2",
     "vue": "^3.2.25",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",
+    "sass": "^1.54.5",
     "vite": "^2.7.2",
     "ws": "^8.4.2"
   }

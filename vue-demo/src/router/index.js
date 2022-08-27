@@ -35,6 +35,16 @@ const router = createRouter({
       name: 'focus-input',
       component: () => import(/* webpackChunkName: "focus-input" */ '@/examples/focus-input/index.vue')
     },
+    {
+      path: '/cron',
+      name: 'cron',
+      component: () => import(/* webpackChunkName: "demo" */ '@/examples/cron/index.vue')
+    },
+    {
+      path: '/demo',
+      name: 'demo',
+      component: () => import(/* webpackChunkName: "demo" */ '@/examples/demo/index.vue')
+    },
   ]
 })
 
