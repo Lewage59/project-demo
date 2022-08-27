@@ -13,7 +13,8 @@
     "jmuxer": "^2.0.3",
     "konva": "^8.3.2",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue3-cron": "1.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

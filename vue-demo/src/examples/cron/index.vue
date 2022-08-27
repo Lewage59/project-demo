@@ -25,10 +25,12 @@
 
 <script>
 import { reactive, defineComponent, watch } from 'vue'
-import vue3Cron from './vue3-cron/index.vue'
+import { vue3Cron } from 'vue3-cron'
+import 'vue3-cron/lib/vue3Cron.css' // 引入样式
 
 export default defineComponent({
-  components: { vue3Cron},
+  template: '<vue3Cron/>',
+  components: { vue3Cron },
   setup() {
     const state = reactive({
       cronPopover: false,
