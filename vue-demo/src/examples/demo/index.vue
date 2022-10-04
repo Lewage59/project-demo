@@ -56,3 +56,9 @@
     }
   })
 </script>
+
+<style>
+  .v-codemirror .ͼ1 .cm-scroller {
+    font-family: 'Menlo, Monaco, Consolas,"Courier New", monospace';
+  }
+</style>
