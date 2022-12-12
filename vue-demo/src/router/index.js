@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHashHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
+  history: createWebHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
   /**
    * 每个 Demo 都是独立的根路由
    */
@@ -39,6 +39,11 @@ const router = createRouter({
       path: '/cron',
       name: 'cron',
       component: () => import(/* webpackChunkName: "demo" */ '@/examples/cron/index.vue')
+    },
+    {
+      path: '/codemirror',
+      name: 'codemirror',
+      component: () => import(/* webpackChunkName: "demo" */ '@/examples/codemirror/index.vue')
     },
     {
       path: '/demo',

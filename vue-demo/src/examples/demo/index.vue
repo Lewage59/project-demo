@@ -1,64 +1,66 @@
 <template>
-  <h1>在线 Code 编辑器</h1>
-  <codemirror
-    v-model="code"
-    placeholder="Code goes here..."
-    :style="{ height: '400px' }"
-    :autofocus="true"
-    :indent-with-tab="true"
-    :tab-size="2"
-    :extensions="extensions"
-    @ready="handleReady"
-    @change="log('change', $event)"
-    @focus="log('focus', $event)"
-    @blur="log('blur', $event)"
+  <img 
+    ref="imgRef" 
+    src="../../assets/walker.gif" 
+    class="img-gif" 
+    @mouseover="handleHoverOver" 
+    @mouseleave="handleHoverLeave"
   />
+  {{hover}}
 </template>
 
 <script>
-  import { defineComponent, ref, shallowRef } from 'vue'
-  import { Codemirror } from 'vue-codemirror'
-  import { javascript } from '@codemirror/lang-javascript'
-  import { oneDark } from '@codemirror/theme-one-dark'
+import { defineComponent, ref, onMounted } from 'vue';
 
-  export default defineComponent({
-    components: {
-      Codemirror
-    },
-    setup() {
-      const code = ref(`console.log('Hello, world!')`)
-      const extensions = [javascript(), oneDark]
+export default defineComponent({
+  setup() {
+    const imgRef = ref(null);
+    const hover = ref(false);
 
-      // Codemirror EditorView instance ref
-      const view = shallowRef()
-      const handleReady = (payload) => {
-        view.value = payload.view
-      }
+    let imgSrc = null;
+    let staticImgSrc = null;
 
-      // Status is available at all times via Codemirror EditorView
-      const getCodemirrorStates = () => {
-        const state = view.value.state
-        const ranges = state.selection.ranges
-        const selected = ranges.reduce((r, range) => r + range.to - range.from, 0)
-        const cursor = ranges[0].anchor
-        const length = state.doc.length
-        const lines = state.doc.lines
-        // more state info ...
-        // return ...
-      }
+    onMounted(() => {
+      imgSrc = imgRef.value.src;
+      console.log("🚀 ~ file: index.vue:25 ~ onMounted ~ imgSrc", imgSrc)
+      const canvas = document.createElement('canvas');
+      canvas.src = imgSrc;
+      canvas.width = 200;
+      canvas.height = 200;
+      canvas.getContext('2d').drawImage(imgRef.value, 0, 0, 200, 200);
+      staticImgSrc = canvas.toDataURL("image/png");
+    })
 
-      return {
-        code,
-        extensions,
-        handleReady,
-        log: console.log
-      }
+    const handleHoverOver = () => {
+      hover.value = !hover.value;
+      imgRef.value.style.width = '220px';
+      imgRef.value.style.height = '220px';
+      imgRef.value.src = imgSrc;
     }
-  })
+
+    const handleHoverLeave = () => {
+      hover.value = !hover.value;
+      imgRef.value.style.width = '200px';
+      imgRef.value.style.height = '200px';
+      imgRef.value.src = staticImgSrc;
+    }
+
+    return {
+      imgRef,
+      hover,
+      handleHoverOver,
+      handleHoverLeave
+    }
+  },
+})
 </script>
 
 <style>
-  .v-codemirror .ͼ1 .cm-scroller {
-    font-family: 'Menlo, Monaco, Consolas,"Courier New", monospace';
-  }
+.img-gif {
+  width: 200px;
+  height: 200px;
+}
+/* .img-gif:hover {
+  transform: scale(1.1);
+} */
 </style>
