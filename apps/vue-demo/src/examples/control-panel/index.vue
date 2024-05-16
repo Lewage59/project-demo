@@ -9,7 +9,7 @@
 
 <script>
 import ControlPanel from './core/controlPanel'
-import { onMounted, reactive, toRefs } from '@vue/runtime-core'
+import { onMounted, reactive, toRefs } from 'vue'
 
 let controlPanel = null
 
