@@ -8,10 +8,10 @@
 
 ## Demo 框架
 
-- [Vue 项目轮子 Demo](./vue-demo/README.md)
+- [Vue 项目轮子 Demo](./apps/vue-demo/README.md)
   - logicflow 流程图框架
   - JMuxer 音视频处理器
   - 键盘控制面板
   - 鼠标聚焦输入实现
   - 基于 element ui 的 cron 组件
-- [React 项目轮子 Demo](./react-demo/README.md)
+- [React 项目轮子 Demo](./apps/react-demo/README.md)
