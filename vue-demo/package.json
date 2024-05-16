@@ -15,6 +15,7 @@
     "element-plus": "^2.2.15",
     "jmuxer": "^2.0.3",
     "konva": "^8.3.2",
+    "rxjs": "^7.8.1",
     "vue": "^3.2.25",
     "vue-codemirror": "^6.1.1",
     "vue-router": "^4.0.12",
