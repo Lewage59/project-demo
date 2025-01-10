@@ -1,9 +1,9 @@
 <template>
-  <MockRealScene />
+  <Wrapper @a-click="handleIndexClick" />
 </template>
 
 <script lang="ts" setup>
-import MockRealScene from "./MockRealScene/index.vue";
+import Wrapper from "./Wrapper.vue";
 
 const handleIndexClick = () => {
   console.log("index.vue custom-click handleClick");
