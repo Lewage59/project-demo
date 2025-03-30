@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>同步HTTP请求演示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>HTTP请求演示</h2>
+
+    <button onclick="makeSyncRequest()">发送同步请求</button>
+    <button onclick="makeAsyncRequest()">发送异步请求（对比）</button>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        // 同步HTTP请求函数
+        function syncHttpRequest(url) {
+            try {
+                const xhr = new XMLHttpRequest();
+
+                // false表示同步请求
+                xhr.open('GET', url, false);
+
+                console.log('syncHttpRequest start')
+
+                // 发送请求（这里会阻塞）
+                console.time('同步请求耗时');
+                xhr.send(null);
+                console.timeEnd('同步请求耗时');
+
+                console.log('syncHttpRequest end')
+
+                if (xhr.status === 200) {
+                    return xhr.responseText;
+                } else {
+                    throw new Error(`HTTP Error: ${xhr.status}`);
+                }
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        // 异步HTTP请求函数（用于对比）
+        function asyncHttpRequest(url) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true); // true表示异步
+
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    } else {
+                        reject(new Error(`HTTP Error: ${xhr.status}`));
+                    }
+                };
+
+                xhr.onerror = function() {
+                    reject(new Error('Network Error'));
+                };
+
+                console.log('asyncHttpRequest start')
+
+                console.time('异步请求耗时');
+                xhr.send(null);
+
+                console.log('asyncHttpRequest end')
+            });
+        }
+
+        // 执行同步请求
+        function makeSyncRequest() {
+            const resultDiv = document.getElementById('result');
+            try {
+                // 使用JSONPlaceholder提供的测试API
+                const result = syncHttpRequest('https://jsonplaceholder.typicode.com/todos/1');
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>同步请求成功！</h3>
+                        <pre>${JSON.stringify(JSON.parse(result), null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>同步请求失败！</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 执行异步请求
+        async function makeAsyncRequest() {
+            const resultDiv = document.getElementById('result');
+            try {
+                const result = await asyncHttpRequest('https://jsonplaceholder.typicode.com/todos/1');
+                console.timeEnd('异步请求耗时');
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>异步请求成功！</h3>
+                        <pre>${JSON.stringify(JSON.parse(result), null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>异步请求失败！</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
