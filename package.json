@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:vue-demo": "pnpm --filter vue-demo dev",
+    "watch:react-demo": "pnpm --filter react-demo dev"
   },
   "keywords": [],
   "author": "",

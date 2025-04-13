@@ -2,7 +2,7 @@
   <Wrapper @a-click="handleIndexClick" />
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import Wrapper from "./Wrapper.vue";
 
 const handleIndexClick = () => {
