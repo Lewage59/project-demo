@@ -71,6 +71,14 @@ const router = createRouter({
         ),
     },
     {
+      path: "/dynamic-comp-render",
+      name: "dynamic-comp-render",
+      component: () =>
+        import(
+          /* webpackChunkName: "demo" */ "@/examples/dynamic-comp-render/index.vue"
+        ),
+    },
+    {
       path: "/demo",
       name: "demo",
       component: () =>
