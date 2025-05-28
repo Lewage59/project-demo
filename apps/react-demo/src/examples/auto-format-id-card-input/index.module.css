@@ -1,0 +1,84 @@
+.card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+  transition: border 0.2s;
+  position: relative;
+}
+
+.cardError {
+  border: 1.5px solid #ff4d4f !important;
+}
+
+.cardFocused {
+  border: 1.5px solid #1677ff !important;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #222;
+  font-weight: 600;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  font-size: 18px;
+  padding: 10px 40px 10px 12px;
+  letter-spacing: 2px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s;
+}
+
+.inputFocused {
+  box-shadow: 0 0 0 2px #e6f4ff;
+}
+
+.inputError {
+  box-shadow: 0 0 0 2px #fff1f0;
+}
+
+.clearBtn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0,0,0,0.04);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
+  color: #888;
+  transition: background 0.2s;
+}
+
+.clearBtn:hover {
+  background: rgba(0,0,0,0.10);
+}
+
+.info {
+  margin-top: 16px;
+  color: #888;
+  min-height: 24px;
+}
+
+.success {
+  color: #52c41a;
+  margin-left: 8px;
+} 
