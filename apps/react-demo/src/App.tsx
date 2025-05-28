@@ -1,18 +1,32 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
 import AutoFormatIdCardInputDemo from './examples/auto-format-id-card-input'
+import styles from './App.module.css'
+
+function Nav() {
+  const location = useLocation();
+  return (
+    <nav className={styles.navbar}>
+      <Link
+        to="/"
+        className={location.pathname === '/' ? styles.active : ''}
+      >首页</Link>
+      <Link
+        to="/auto-format-id-card-input"
+        className={location.pathname === '/auto-format-id-card-input' ? styles.active : ''}
+      >自动格式化身份证输入框</Link>
+    </nav>
+  );
+}
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <Router>
-      <nav style={{ marginBottom: 20 }}>
-        <Link to="/">首页</Link> |
-        <Link to="/auto-format-id-card-input" style={{ marginLeft: 8 }}>自动格式化身份证输入框</Link>
-      </nav>
+      <Nav />
       <Routes>
         <Route path="/" element={
           <div className="App">
