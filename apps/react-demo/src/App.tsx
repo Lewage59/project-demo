@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
 import AutoFormatIdCardInputDemo from './examples/auto-format-id-card-input'
+import DemoUseEffectCallback from './examples/demo-use-effect-callback'
 import styles from './App.module.css'
 
 function Nav() {
@@ -17,6 +18,10 @@ function Nav() {
         to="/auto-format-id-card-input"
         className={location.pathname === '/auto-format-id-card-input' ? styles.active : ''}
       >自动格式化身份证输入框</Link>
+      <Link
+        to="/demo-use-effect-callback"
+        className={location.pathname === '/demo-use-effect-callback' ? styles.active : ''}
+      >useEffect callback demo</Link>
     </nav>
   );
 }
@@ -53,6 +58,7 @@ function App() {
           </div>
         } />
         <Route path="/auto-format-id-card-input" element={<AutoFormatIdCardInputDemo />} />
+        <Route path="/demo-use-effect-callback" element={<DemoUseEffectCallback />} />
       </Routes>
     </Router>
   )
